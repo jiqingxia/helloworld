@@ -1,0 +1,38 @@
+﻿!/bin/bash                                                                                          credit_ct@10.142.97.135
+INIT_PATH="/home/credit_ct/credit";
+logpath=${INIT_PATH}/log
+sqlArray=(sql-for-bestpay sql-for-marketing_department_project sql-for-goverment-enterperise-department sql-for-channels-department sql-for-label)
+prov=(sh txt py sql)
+for var in ${prov[@]} ;
+do
+  for shname in  `find ${INIT_PATH} -mtime 0 -name "*.${var}" `
+  do
+   echo ${shname}
+   filename=${shname##*/}
+   name=`echo "$shname" | awk -F/ '{print $5}'`
+   busname=`echo "$shname" | awk -F/ '{print $6}'`
+   echo $name $busname $filename
+   for sqlpath in ${sqlArray[@]} ;
+   do
+      if [ ${busname} == ${sqlpath} ];then
+            echo "yes"
+            scp ${shname} huangzhe@10.142.156.53:~/${busname}/${name}_${filename}
+       fi
+   done
+  #scp ${shname} huangzhe@10.142.156.53:~/${busname}/${name}_${filename}
+  # echo $name $busname $filename
+  done
+done
+
+#ssh到git机器提交代码到gitlab
+for sqlpath in ${sqlArray[@]} ;
+ do
+ ssh huangzhe@10.142.156.53 << eeooff
+    cd ./${sqlpath}
+    git add .
+    git commit -m 'add sql'
+    git push origin
+    exit
+eeooff
+ echo done! 
+ done
