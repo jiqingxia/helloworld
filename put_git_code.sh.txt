@@ -1,7 +1,7 @@
 ﻿!/bin/bash                                                                                          credit_ct@10.142.97.135
-INIT_PATH="/home/credit_ct/credit";
+INIT_PATH="目录";
 logpath=${INIT_PATH}/log
-sqlArray=(sql-for-bestpay sql-for-marketing_department_project sql-for-goverment-enterperise-department sql-for-channels-department sql-for-label)
+sqlArray=(文件目录)
 prov=(sh txt py sql)
 for var in ${prov[@]} ;
 do
@@ -16,18 +16,17 @@ do
    do
       if [ ${busname} == ${sqlpath} ];then
             echo "yes"
-            scp ${shname} huangzhe@10.142.156.53:~/${busname}/${name}_${filename}
+            scp ${shname} 用户名@ip:~/${busname}/${name}_${filename}
        fi
    done
-  #scp ${shname} huangzhe@10.142.156.53:~/${busname}/${name}_${filename}
-  # echo $name $busname $filename
+
   done
 done
 
 #ssh到git机器提交代码到gitlab
 for sqlpath in ${sqlArray[@]} ;
  do
- ssh huangzhe@10.142.156.53 << eeooff
+ ssh 机器地址@ << eeooff
     cd ./${sqlpath}
     git add .
     git commit -m 'add sql'
